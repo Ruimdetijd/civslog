@@ -31,7 +31,7 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "civslog-server": "^1.0.1",
+    "civslog-server": "^1.0.2",
     "express-http-proxy": "^1.2.0",
     "halicarnassus": "^2.0.0",
     "react": "^16.4.2",
