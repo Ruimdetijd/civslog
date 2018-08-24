@@ -1,0 +1,50 @@
+version: "3.6"
+
+services:
+  db:
+    environment:
+      - POSTGRES_PASSWORD=postgis
+    image: mdillon/postgis:10-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - timeline_db:/var/lib/postgresql/data
+
+  client:
+    image: node:9-alpine
+    command: ["npm", "start"]
+    environment:
+      CIVSLOG_SERVER: server 
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./node_modules/civslog-server:/app
+    working_dir: /app
+
+  server:
+    image: node:9-alpine
+    command: ["npm", "start"]
+    depends_on:
+      - db
+    environment:
+      PGHOST: db
+    ports:
+      - "3377:3377"
+    secrets:
+      - civslog_db_name
+      - civslog_db_user
+      - civslog_db_password
+    volumes:
+      - ./:/app
+    working_dir: /app
+
+volumes:
+  timeline_db:
+
+secrets:
+  civslog_db_name:
+    external: true
+  civslog_db_user:
+    external: true
+  civslog_db_password:
+    external: true
