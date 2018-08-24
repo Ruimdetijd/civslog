@@ -1,8 +1,8 @@
-# rm -rf node_modules
-# npm i
+rm -rf node_modules
+npm i
 
-# npm run build
-# npm run dist
+npm run build
+npm run dist
 
 echo -e "\n\n"
 read -p "Did you bump the version? (do it now, if you didn't! :))"
@@ -14,5 +14,5 @@ if [ $anwser == "y" ]; then
 	git add .
 	git commit -m "Bump to v$next_version"
 	git tag "v$next_version"
-	git push -u origin master && git push --tags
+	git push && git push --tags
 fi
