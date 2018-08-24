@@ -38,9 +38,11 @@ services:
     depends_on:
       - server 
     environment:
+      NODE_ENV: development
       CIVSLOG_SERVER: server
     ports:
       - "3000:3000"
+      - "9856:9856"
     user: node
     volumes:
       - ./:/app
