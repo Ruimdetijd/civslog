@@ -1,17 +1,18 @@
-rm -rf node_modules
-npm i
+# rm -rf node_modules
+# npm i
 
-npm run build
-npm run dist
+# npm run build
+# npm run dist
 
-read -p "\n\nDid you bump the version? "
+echo -e "\n\n"
+read -p "Did you bump the version? (do it now, if you didn't! :))"
 next_version=$(node -pe 'require("./package.json").version')
-read -p "Bump the version to $next_version? " anwser
-echo "\n\n"
+read -p "Bump the version to v$next_version? " anwser
+echo -e "\n\n"
 
 if [ $anwser == "y" ]; then
 	git add .
 	git commit -m "Bump to v$next_version"
-	git tag "$next_version"
-	git push && git push --tags
+	git tag "v$next_version"
+	git push -u origin master && git push --tags
 fi
