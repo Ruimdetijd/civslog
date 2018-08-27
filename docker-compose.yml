@@ -15,7 +15,6 @@ services:
     depends_on:
       - db
     environment:
-      NODE_ENV: production
       PGHOST: db
     secrets:
       - civslog_db_name
