@@ -10,6 +10,7 @@ const template = (): string =>
 		<title>Halicarnassus ${pkg.dependencies.halicarnassus.slice(1)}</title>
 		<link rel="stylesheet" href="https://openlayers.org/en/v5.1.3/css/ol.css" type="text/css">
 		<link rel="stylesheet" href="/halicarnassus/halicarnassus.css" type="text/css">
+		<link rel="stylesheet" href="/timeline/popup.css" type="text/css">
 		<script src="/dist/client/bundle${min}.js"></script>
 		<style>
 			html, body {

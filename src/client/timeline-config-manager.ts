@@ -14,7 +14,7 @@ export default class TimelineConfigManager {
 
 	getDefaultConfig(): TimelineConfig {
 		return {
-			center: Date.UTC(1471, 0),
+			center: Date.UTC(1927, 0),
 			controlBand: this.battlesBand,
 			bands: [
 				this.warsBand,

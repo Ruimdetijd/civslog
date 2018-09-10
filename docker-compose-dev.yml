@@ -28,6 +28,8 @@ services:
     user: node
     volumes:
       - ./node_modules/civslog-server:/app
+      - ./node_modules/timeline:/app/node_modules/timeline
+      - timeline_images:/app/images
     working_dir: /app
 
   # Civ's Log client. Also an Express webserver, but solemnly serving the index.html
@@ -46,12 +48,14 @@ services:
     user: node
     volumes:
       - ./:/app
+      - timeline_images:/app/images
       - ./node_modules/halicarnassus:/app/node_modules/halicarnassus
       - ./node_modules/timeline:/app/node_modules/timeline
     working_dir: /app
 
 volumes:
   timeline_db:
+  timeline_images:
 
 secrets:
   civslog_db_name:

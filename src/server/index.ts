@@ -12,6 +12,7 @@ app.disable('x-powered-by')
 
 app.use(express.static(path.resolve(process.cwd(), './node_modules')))
 app.use(express.static(process.cwd()))
+app.use('/images', express.static('images'))
 app.use('/api', proxy(`${process.env.CIVSLOG_SERVER}:3377`))
 
 app.get('/', (_req, res) =>  {
