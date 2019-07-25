@@ -1,10 +1,11 @@
-import { TimelineConfig, EventsBand, MinimapBand } from "timeline"
-import { OrderedEvents } from "timeline"
+import { TimelineConfig, EventsBand, MinimapBand, Ev3nt } from "timeline"
+// import { OrderedTimeline } from "timeline"
 import { VisibleComponents } from 'halicarnassus'
+import { ConfigManager } from './event-config';
 
 const CIVSLOG_SERVER = '/api'
 
-export default class TimelineConfigManager {
+export default class TimelineConfigManager extends ConfigManager {
 	private readonly battlesZoomLevel = 8
 	private readonly warsZoomLevel = 4
 	battlesBand: EventsBand
@@ -14,7 +15,7 @@ export default class TimelineConfigManager {
 
 	getDefaultConfig(): TimelineConfig {
 		return {
-			center: Date.UTC(1927, 0),
+			center: Date.UTC(1600, 0),
 			controlBand: this.battlesBand,
 			bands: [
 				this.warsBand,
@@ -28,23 +29,23 @@ export default class TimelineConfigManager {
 	async init(rootElement: HTMLElement): Promise<TimelineConfig> {
 		this.rootElement = rootElement
 		const viewportWidth = this.rootElement.getBoundingClientRect().width
-		const response = await fetch(`${CIVSLOG_SERVER}/events/by-tag/battle?viewportWidth=${viewportWidth}&zoomLevel=${this.battlesZoomLevel}`)
-		const orderedBattles: OrderedEvents = await response.json()
+		const response = await fetch(`${CIVSLOG_SERVER}/events/by-class/battle?viewportWidth=${viewportWidth}&zoomLevel=${this.battlesZoomLevel}`)
+		const battles: Ev3nt[] = await response.json()
 
-		const warsResponse = await fetch(`${CIVSLOG_SERVER}/events/by-tag/war?viewportWidth=${viewportWidth}&zoomLevel=${this.warsZoomLevel}`)
-		const orderedWars: OrderedEvents = await warsResponse.json()
+		const warsResponse = await fetch(`${CIVSLOG_SERVER}/events/by-class/war?viewportWidth=${viewportWidth}&zoomLevel=${this.warsZoomLevel}`)
+		const wars: Ev3nt[] = await warsResponse.json()
 
 		this.warsBand = new EventsBand({
 			heightRatio: .25,
 			label: 'wars',
-			orderedEvents: orderedWars,
+			events: wars,
 			zoomLevel: this.warsZoomLevel,
 		})
 
 		this.battlesBand = new EventsBand({
 			heightRatio: .65,
 			label: 'battles',
-			orderedEvents: orderedBattles,
+			events: battles,
 			topOffsetRatio: .25,
 			zoomLevel: this.battlesZoomLevel,
 		})

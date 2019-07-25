@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "importHelpers": true,
     "jsx": "react",
+    "lib": ["dom", "es2017"],
     "module": "commonjs",
     "noImplicitAny": true,
     "noUnusedLocals": true,
